@@ -14,9 +14,6 @@ class Book:
     def __repr__(self):
         return self.book_name + ' ' + self.author
 
-    def change_code(self, code):
-        self.code = code
-
     def tag(self):
         return [word for word in self.book_name.split() if word[0].isupper()]
 
