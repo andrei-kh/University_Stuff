@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<Airline xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <airlineName>SomeAirline</airlineName>
+  <aircrafts>
+    <Aircraft xsi:type="Cessna172">
+      <aircraftManufacturer>Cessna</aircraftManufacturer>
+      <aircraftModel>172</aircraftModel>
+      <flightRange>300</flightRange>
+      <fuelConsumption>200</fuelConsumption>
+      <seatCapacity>3</seatCapacity>
+    </Aircraft>
+    <Aircraft xsi:type="Cessna172">
+      <aircraftManufacturer>Cessna</aircraftManufacturer>
+      <aircraftModel>172</aircraftModel>
+      <flightRange>300</flightRange>
+      <fuelConsumption>200</fuelConsumption>
+      <seatCapacity>3</seatCapacity>
+    </Aircraft>
+    <Aircraft xsi:type="AirbusA320">
+      <aircraftManufacturer>Airbus</aircraftManufacturer>
+      <aircraftModel>A320</aircraftModel>
+      <flightRange>4000</flightRange>
+      <fuelConsumption>2100</fuelConsumption>
+      <seatCapacity>180</seatCapacity>
+      <cargoCapacity>1200</cargoCapacity>
+    </Aircraft>
+    <Aircraft xsi:type="Boeing737">
+      <aircraftManufacturer>Boeing</aircraftManufacturer>
+      <aircraftModel>737</aircraftModel>
+      <flightRange>5000</flightRange>
+      <fuelConsumption>2300</fuelConsumption>
+      <seatCapacity>190</seatCapacity>
+      <cargoCapacity>4500</cargoCapacity>
+    </Aircraft>
+    <Aircraft xsi:type="BoeingC17">
+      <aircraftManufacturer>Boeing</aircraftManufacturer>
+      <aircraftModel>C-17</aircraftModel>
+      <flightRange>10000</flightRange>
+      <fuelConsumption>4500</fuelConsumption>
+      <cargoCapacity>7000</cargoCapacity>
+    </Aircraft>
+  </aircrafts>
+</Airline>
