@@ -4,14 +4,14 @@ using System.Linq;
 using System.Xml.Serialization;
 using Objects;
 using System.Text;
+using Objects.Exceptions;
 
 namespace ObjectInstances
 {
-    [XmlInclude(typeof(AirbusA320))]
-    [XmlInclude(typeof(Boeing737))]
-    [XmlInclude(typeof(BoeingC17))]
-    [XmlInclude(typeof(Cessna172))]
-
+    [XmlInclude(typeof(CargoAircraft))]
+    [XmlInclude(typeof(CommercialAircraft))]
+    [XmlInclude(typeof(LightAircraft))]
+    
     public class Airline
     {
         public string airlineName;
@@ -27,7 +27,15 @@ namespace ObjectInstances
         public List<Aircraft> aircrafts { get; }
         public void addAircraft(Aircraft aircraft)
         {
+            if(aircraft.id == -1)
+                aircraft.id = (aircrafts.Select(x => x.id)).Max() + 1;
+            if(aircrafts.Any(x => x.id == aircraft.id))
+                throw new AirlineContainerException("Aircraft with this id already exists");
             aircrafts.Add(aircraft);
+        }
+        public void removeAircraft(int id)
+        {
+            aircrafts.RemoveAll(x => x.id == id);
         }
         public int calculateTotalCargoCapacity() => aircrafts.Sum(x => x.getCargoCapacity());
         public int calculateTotalSeatCapacity() => aircrafts.Sum(x => x.getSeatCapacity());

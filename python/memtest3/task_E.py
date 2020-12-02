@@ -16,7 +16,6 @@ def modinv(a, m):
     else:
         return x % m
 
-
 e = int(input())
 p = int(input())
 q = int(input())
