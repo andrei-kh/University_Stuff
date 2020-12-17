@@ -5,9 +5,11 @@ from sympy import pprint
 from sympy import init_printing
 
 init_printing()
-A = [[5, 6, 6],
-     [2, 3, 3],
-     [1, 4, 8]]
+A = [
+    [2, 0, 1],
+    [0, 2, 1],
+    [0, 9, 2]
+]
 
 
 a = np.array(A, dtype=float)

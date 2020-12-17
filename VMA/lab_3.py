@@ -1,7 +1,5 @@
 import numpy as np
 
-ITERATION_LIMIT = 1000
-
 C = np.array([[16., 3.],
               [7., -11.]])
 # initialize the RHS vector
@@ -17,7 +15,9 @@ normal = (-np.linalg.inv(np.tril(C))).dot(np.triu(C) - np.diag(np.diag(C)))
 print('Matrix A:\n', normal)
 normal = np.sum(np.absolute(normal), axis=1).max()
 print('Normal:', normal)
-for it_count in range(1, ITERATION_LIMIT):
+it_count = 0
+while(True):
+    it_count += 1
     x_new = np.zeros_like(x)
     print("Iteration {0}: {1}".format(it_count, x))
     for i in range(C.shape[0]):

@@ -6,9 +6,9 @@ from sympy import init_printing
 # from sympy import re
 
 A = [
-    [5, 2, 5],
-    [6, 9, 1],
-    [9, 1, 7]
+    [2, 1, 0],
+    [1, 2, 1],
+    [0, 8, 2]
 ]
 a = np.array(A)
 print('Матрица А:\n', a)
