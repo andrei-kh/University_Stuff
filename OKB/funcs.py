@@ -30,7 +30,8 @@ def extended_gcd(aa, bb):
             lastremainder, remainder)
         x, lastx = lastx - quotient * x, x
         y, lasty = lasty - quotient * y, y
-    return lastremainder, lastx * (-1 if aa < 0 else 1), lasty * (-1 if bb < 0 else 1)
+    return lastremainder, lastx * \
+        (-1 if aa < 0 else 1), lasty * (-1 if bb < 0 else 1)
 
 
 # инверсия ax mod m = 1
@@ -40,6 +41,7 @@ def modinv(a, m):
         return('нет')
     else:
         return x % m
+
 
 # Нод
 def gcd(a, b):
@@ -72,6 +74,7 @@ def cez(n):
         print(f'{ks[i]};', end='')
     print(ks[-1])
 
+
 def __all_modinv(n):
     res = []
     for i in range(1, n + 1):
@@ -87,6 +90,7 @@ def all_modinv(n):
     for i in range(0, len(all) - 1):
         print(f'({all[i][0]};{all[i][1]});', end='')
     print(f'({all[-1][0]};{all[-1][1]})')
+
 
 # Ключи которые не подходят для n из Ci Mi * k mod n
 def ne_cez(n):
@@ -118,8 +122,6 @@ def exp1(a, b, n):
 def exp2(a, b, c, d, n):
     print((a - b * modinv(c, n) + d) % n)
 
-exp2(197, 200, 19, 153, 10)
-
 
 # Друзья пифагора: n - кол-во друзей, f - кол-во фиников
 def bros(n, f):
@@ -143,6 +145,7 @@ def evk(n):
     print(facts[-1])
 
 
+# шифр гаммирования
 def gamma(c, key):
     c = bytearray.fromhex(c)
     for i in c:
@@ -150,4 +153,73 @@ def gamma(c, key):
     print()
 
 
-gamma("607a13657a6013637270767e1f136372617213796660677a677a727e", 0x33)
+# тарабарская грамота
+def tarab(c):
+    line1 = ['Б', 'В', 'Г', 'Д', 'Ж', 'З', 'К', 'Л', 'М', 'Н']
+    line2 = ['Щ', 'Ш', 'Ч', 'Ц', 'Х', 'Ф', 'Т', 'С', 'Р', 'П']
+    res = ''
+    for s in c:
+        if s in line1:
+            res += line2[line1.index(s)]
+        elif s in line2:
+            res += line1[line2.index(s)]
+        else:
+            res += s
+    print(res)
+    return res
+
+
+# Столбцовая транспозиция зашифровать
+def coltranscrypt(c):
+    n = math.ceil(math.sqrt(len(c)))
+    c = c.replace(' ', '_')
+    c += '_' * (n * n - len(c))
+    table = []
+    for i in range(n):
+        table.append(list(c[i * n:i * n + n]))
+        if i % 2:
+            table[i] = table[i][::-1]
+    # table[-1] += ['_' for _ in range(n - len(table[-1]))]
+    for t in table:
+        print(t)
+
+    res = ''
+    for j in range(n):
+        for i in range(n):
+            res += table[i][j]
+    print(res)
+    return res
+
+
+# a = coltranscrypt('В ОДНОМ ЧАСЕ ЛЮБВИ - ЦЕЛАЯ ЖИЗНЬ')
+
+
+# Столбцовая транспозиция расшифровать
+def coltransdecrypt(c):
+    n = math.ceil(math.sqrt(len(c)))
+    c = c.replace(' ', '_')
+    table = []
+    for i in range(n):
+        table.append(list(c[i * n:i * n + n]))
+
+    for t in table:
+        print(t)
+
+    res = ''
+    for j in range(n):
+        if j % 2:
+            for i in range(n - 1, -1, -1):
+                res += table[i][j]
+        else:
+            for i in range(n):
+                res += table[i][j]
+
+    print(res)
+    return res
+
+
+gamma('dbdfcbcfdbd6d3cedbc9bad2dbcfdebacadbc8d3cebad8dfd6d6cfd7', 0x9a)
+tarab('КАЖДЫЙ ДЕНЬ ИМЕЕТ СВОЁ ЧУДО.')
+tarab('ЖОГЕВЬ ЩЫКЬ ЛГАЛКСИШЫР - ЩУЦЬ ИР!')
+coltranscrypt('ХОЧЕШЬ БЫТЬ СЧАСТЛИВЫМ - БУДЬ ИМ!')
+coltransdecrypt('МВСАЗВЕО_ЮРЛТРЖЬ__ЮЕГНТЖАБЧ.ОИИ_И___БЗ.ТВ_ЛЮНЬЬ__')
