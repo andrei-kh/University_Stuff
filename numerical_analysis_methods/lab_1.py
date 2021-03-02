@@ -1,17 +1,19 @@
 # Variant 24
-from util import plotfunc, derivative, interface
+from util import Formatter, plotfunc, derivative
 import numpy as np
 
 np.seterr(divide='raise', invalid='raise')
 
 
+# Функция варианта 24
 def func(x):
     try:
         return 3 * np.log10(x) - 4 / (2 * x + 3)
     except BaseException:
-        raise ValueError('Дано неверное значение функции')
+        return None
 
 
+# Метод бисекции
 def bisection_method(f, a, b, e=1e-5):
 
     if f(a) * f(b) >= 0 or a > b:
@@ -32,12 +34,14 @@ def bisection_method(f, a, b, e=1e-5):
     return x1, i
 
 
+# Метод простой итерации
 def iterative_method(f, a, b, M=None, e=1e-5):
     if f(a) * f(b) >= 0 or a > b:
         raise ValueError('Дан Неверный отрезок')
 
+    # Если значение M не указано M считается как max(f'(x))
     if M is None:
-        xs = np.arange(a, b, (b - a) / e)
+        xs = np.linspace(a, b, int((b - a) / e))
         dxs = [abs(derivative(f, x)) for x in xs]
         lam = 1 / max(dxs)
     else:
@@ -45,13 +49,14 @@ def iterative_method(f, a, b, M=None, e=1e-5):
 
     x = a
     i = 0
-    while abs(func(x)) > e:
+    while abs(f(x)) > e:
         x = x - lam * func(x)
         i += 1
 
     return x, i
 
 
+# Метод ньютона
 def newtons_method(f, a, b, e=1e-5):
     if f(a) * f(b) >= 0 or a > b:
         raise ValueError('Дан неверный отрезок')
@@ -67,26 +72,14 @@ def newtons_method(f, a, b, e=1e-5):
 
 if __name__ == "__main__":
     try:
-        plotfunc(func, 0.01, 20.0, 100)
+        plotfunc(func, 0.1, 10.0, 100000, set_ylim=False)
 
-        print("\nМетод бисекции:")
-        args = interface(bisection_method)
-        bisection, bisection_iterations = bisection_method(func, *args)
-        print(f"f({bisection}) = {format(func(bisection), '.16f')}")
-        print("Количество итераций:", bisection_iterations)
+        formatter = Formatter(func,
+                              {"\nМетод бисекции:": bisection_method,
+                               "Метод простых итераций:": iterative_method,
+                               "Метод Ньютона:": newtons_method})
+        formatter.interface_wrapper()
 
-        print("\nМетод простых итераций:")
-        args = interface(iterative_method, 4)
-        iterarion, iteration_iterations = iterative_method(func, *args)
-        print(f"f({iterarion}) = {format(func(iterarion), '.16f')}")
-        print("Количество итераций:", iteration_iterations)
-
-        print("\nМетод Ньютона:")
-        args = interface(newtons_method)
-        newton, newton_iterations = newtons_method(func, *args)
-        print(f"f({newton}) = {format(func(newton), '.16f')}")
-        print("Количество итераций:", newton_iterations)
-
-        plotfunc(func, 0.01, 20.0, 100)
+        plotfunc(func, 0.1, -10.0, 100000, set_ylim=False)
     except BaseException as e:
         print(e)
