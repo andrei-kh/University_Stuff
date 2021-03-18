@@ -16,7 +16,7 @@ def secant_method(f, a, b, e=1e-5):
     if f(a) * f(b) >= 0 or a > b:
         raise ValueError('Дан Неверный отрезок')
 
-    if abs(f(a) * second_derivative(f, a)) < e:
+    if f(a) * second_derivative(f, a) < 0:
         def step():
             return x0 - (f(x0) / (f(b) - f(x0))) * (b - x0)
         x0 = a
@@ -32,7 +32,7 @@ def secant_method(f, a, b, e=1e-5):
         x1 = step()
         x0 = x1
 
-    return x1, i
+    return x0, i
 
 
 # Метод Эйткена
