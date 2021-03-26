@@ -8,8 +8,14 @@ from sympy import plot_implicit, Eq, lambdify, diff
 
 # Функция для отрисовки графика
 def plotfunc(func, start=-10.0, finish=10.0, num=200,
-             xticks=1, yticks=1, set_ylim=True, e=1e-3):
-    fig, ax = plt.subplots()
+             xticks=1, yticks=1, set_ylim=True, e=1e-3,
+             figAx=None):
+
+    if figAx is None:
+        fig, ax = plt.subplots()
+    else:
+        fig, ax = figAx
+
     ax.grid(which='major', axis='both', linestyle='-')
     ax.set_xlabel("x")
     ax.set_ylabel("y")
@@ -158,3 +164,31 @@ def derivative(f, x, h=1e-5):
 # Вычисление второй производной
 def second_derivative(f, x, h=1e-5):
     return (f(x + 2 * h) - 2 * f(x + h) + f(x)) / (h * h)
+
+
+def print_table(table, headers, e='.3f'):
+    new_table = [headers]
+    max_h_len = [len(_) for _ in headers]
+    for i in range(len(table)):
+        new_table.append([])
+        for j in range(len(table[0])):
+            new_table[-1].append(str(format(table[i][j], e)))
+            max_h_len[j] = max(max_h_len[j], len(new_table[-1][j]))
+
+    for r in new_table:
+        print('| ', end='')
+        for i in range(len(r)):
+            half1 = (max_h_len[i] - len(r[i])) // 2
+            half2 = max_h_len[i] - half1 - len(r[i])
+            print(' ' * half2 + r[i] + ' ' * half1, end=' | ')
+        print()
+
+
+def print_finite_diffs(finite_diffs):
+    for i in range(len(finite_diffs[0])):
+        for j in range(len(finite_diffs)):
+            try:
+                print(format(finite_diffs[j][i], '.4f'), end=' ')
+            except BaseException:
+                continue
+        print()
