@@ -72,7 +72,7 @@ def newtons_method(f, a, b, e=1e-5):
 
 if __name__ == "__main__":
     try:
-        plotfunc(func, 0.1, 10.0, 100000, set_ylim=False)
+        plotfunc(func, 0.1, 10.0, 100000, ylim=None)
 
         formatter = Formatter(func,
                               {"\nМетод бисекции:": bisection_method,
@@ -80,6 +80,6 @@ if __name__ == "__main__":
                                "Метод Ньютона:": newtons_method})
         formatter.interface_wrapper()
 
-        plotfunc(func, 0.1, -10.0, 100000, set_ylim=False)
+        plotfunc(func, 0.1, 10.0, 100000, ylim=None)
     except BaseException as e:
         print(e)

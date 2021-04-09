@@ -82,7 +82,7 @@ for i in range(len(points)):
 fig, ax = plt.subplots()
 ax.set_title("Первый многочлен")
 plt.scatter([p[0] for p in points], [p[1] for p in points], color='r')
-plotfunc(P1, -10, 20, 20000, figAx=(fig, ax))
+plotfunc(P1, -10, 20, 20000, xlim=(-1, 20), ylim=(-20, 20), figAx=(fig, ax))
 
 if argv[-1] == 'check' or argv[-1] == 'check1':
     print("Проверка для 1го многочлена")
@@ -103,7 +103,7 @@ for i in range(len(points)):
 fig, ax = plt.subplots()
 ax.set_title("Второй многочлен")
 plt.scatter([p[0] for p in points], [p[1] for p in points], color='r')
-plotfunc(P2, -10, 20, 20000, figAx=(fig, ax))
+plotfunc(P2, -10, 20, 20000, xlim=(-1, 20), ylim=(-20, 20), figAx=(fig, ax))
 
 if argv[-1] == 'check' or argv[-1] == 'check2':
     print("Проверка для 2го многочлена")

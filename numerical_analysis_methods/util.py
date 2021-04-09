@@ -7,9 +7,9 @@ from sympy import plot_implicit, Eq, lambdify, diff
 
 
 # Функция для отрисовки графика
-def plotfunc(func, start=-10.0, finish=10.0, num=200,
-             xticks=1, yticks=1, set_ylim=True, e=1e-3,
-             figAx=None):
+def plotfunc(func, start=-10, finish=10, num=200, xlim=None, ylim=True,
+             xticks=1, yticks=1, e=1e-3,
+             figAx=None, show=True):
 
     if figAx is None:
         fig, ax = plt.subplots()
@@ -25,17 +25,28 @@ def plotfunc(func, start=-10.0, finish=10.0, num=200,
     ax.spines['top'].set_color('none')
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
-    ax.xaxis.set_major_locator(ticker.MultipleLocator(xticks))
-    ax.yaxis.set_major_locator(ticker.MultipleLocator(yticks))
 
-    ax.set_xlim([start, finish])
-    if set_ylim:
-        ax.set_ylim([start, finish])
+    if xticks:
+        ax.xaxis.set_major_locator(ticker.MultipleLocator(xticks))
+    if yticks:
+        ax.yaxis.set_major_locator(ticker.MultipleLocator(yticks))
+
+    if xlim is None:
+        xlim = (start, finish)
+        ax.set_xlim(xlim)
+    else:
+        ax.set_xlim(xlim)
+
+    if ylim is True:
+        ax.set_ylim(xlim)
+    elif ylim is not None:
+        ax.set_ylim(ylim)
 
     xs = np.linspace(start, finish, num)
     ax.plot(xs, [func(x) for x in xs])
 
-    plt.show()
+    if show:
+        plt.show()
 
 
 # Класс интерфейса
@@ -172,10 +183,24 @@ def print_table(table, headers, e='.3f'):
     for i in range(len(table)):
         new_table.append([])
         for j in range(len(table[0])):
-            new_table[-1].append(str(format(table[i][j], e)))
+            if isinstance(table[i][j], str):
+                new_table[-1].append(table[i][j])
+            elif isinstance(table[i][j], int):
+                new_table[-1].append(str(table[i][j]))
+            else:
+                new_table[-1].append(str(format(table[i][j], e)))
+
             max_h_len[j] = max(max_h_len[j], len(new_table[-1][j]))
 
-    for r in new_table:
+    headers_str = "| "
+    for i in range(len(new_table[0])):
+        half1 = (max_h_len[i] - len(new_table[0][i])) // 2
+        half2 = max_h_len[i] - half1 - len(new_table[0][i])
+        headers_str += ' ' * half2 + new_table[0][i] + ' ' * half1 + ' | '
+    print(headers_str)
+    print('-' * (len(headers_str) - 1))
+
+    for r in new_table[1:]:
         print('| ', end='')
         for i in range(len(r)):
             half1 = (max_h_len[i] - len(r[i])) // 2
