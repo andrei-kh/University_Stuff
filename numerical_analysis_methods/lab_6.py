@@ -1,5 +1,4 @@
 # Variant 24
-
 from util import plotfunc, print_table
 from sympy.abc import x
 from sympy import lambdify
@@ -15,7 +14,6 @@ points = [
 ]
 
 in_point = 0.955
-
 
 def lagrange_interpolation(points):
     Lequ = 0

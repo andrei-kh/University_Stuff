@@ -4,7 +4,7 @@ from sympy.abc import x
 from sympy import lambdify
 import matplotlib.pyplot as plt
 from math import factorial
-from sys import argv
+# from sys import argv
 
 points = [
     (0.0, 1.758),
@@ -49,10 +49,11 @@ def first_formula(points, n):
     finite_diffs = compute_finite_difference(points)
 
     Pequ = 0
-    for i in range(n + 1):
+    for i in range(n):
         part = 1
         for j in range(i):
             part *= ((x - points[0][0]) / h - j)
+
         Pequ += finite_diffs[i][0] * (part / factorial(i))
 
     P = lambdify([x], Pequ)
@@ -65,52 +66,46 @@ def second_formula(points, n):
     finite_diffs = compute_finite_difference(points)
 
     Pequ = 0
-    for i in range(n + 1):
+    for i in range(n):
         part = 1
         for j in range(i):
-            part *= ((x - points[n][0]) / h + j)
+            part *= ((x - points[n - 1][0]) / h + j)
         Pequ += finite_diffs[i][-1] * (part / factorial(i))
 
     return lambdify([x], Pequ)
 
 
-P1 = first_formula(points, len(points) - 1)
-res1 = []
-for i in range(len(points)):
-    res1.append([points[i][0], points[i][1], P1(points[i][0])])
+P1 = first_formula(points, len(points))
 
 fig, ax = plt.subplots()
 ax.set_title("Первый многочлен")
 plt.scatter([p[0] for p in points], [p[1] for p in points], color='r')
 plotfunc(P1, -10, 20, 20000, xlim=(-1, 20), ylim=(-20, 20), figAx=(fig, ax))
 
-if argv[-1] == 'check' or argv[-1] == 'check1':
-    print("Проверка для 1го многочлена")
-    while True:
-        print("Input some x:", end=' ')
-        inp = input()
-        if inp == 'exit':
-            break
-        x_var = float(inp)
-        print(P1(x_var))
+# if argv[-1] == 'check' or argv[-1] == 'check1':
+#     print("Проверка для 1го многочлена")
+#     while True:
+#         print("Input some x:", end=' ')
+#         inp = input()
+#         if inp == 'exit':
+#             break
+#         x_var = float(inp)
+#         print(P1(x_var))
 
 
-P2 = second_formula(points, len(points) - 1)
-res2 = []
-for i in range(len(points)):
-    res2.append([points[i][0], points[i][1], P2(points[i][0])])
+P2 = second_formula(points, len(points))
 
 fig, ax = plt.subplots()
 ax.set_title("Второй многочлен")
 plt.scatter([p[0] for p in points], [p[1] for p in points], color='r')
 plotfunc(P2, -10, 20, 20000, xlim=(-1, 20), ylim=(-20, 20), figAx=(fig, ax))
 
-if argv[-1] == 'check' or argv[-1] == 'check2':
-    print("Проверка для 2го многочлена")
-    while True:
-        print("Input some x:", end=' ')
-        inp = input()
-        if inp == 'exit':
-            break
-        x_var = float(inp)
-        print(P2(x_var))
+# if argv[-1] == 'check' or argv[-1] == 'check2':
+#     print("Проверка для 2го многочлена")
+#     while True:
+#         print("Input some x:", end=' ')
+#         inp = input()
+#         if inp == 'exit':
+#             break
+#         x_var = float(inp)
+#         print(P2(x_var))
