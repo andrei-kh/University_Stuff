@@ -9,7 +9,7 @@ from sympy import plot_implicit, Eq, lambdify, diff
 # Функция для отрисовки графика
 def plotfunc(func, start=-10, finish=10, num=200, xlim=None, ylim=True,
              xticks=1, yticks=1, e=1e-3,
-             figAx=None, show=True):
+             figAx=None, show=True, name=None):
 
     if figAx is None:
         fig, ax = plt.subplots()
@@ -43,9 +43,15 @@ def plotfunc(func, start=-10, finish=10, num=200, xlim=None, ylim=True,
         ax.set_ylim(ylim)
 
     xs = np.linspace(start, finish, num)
-    ax.plot(xs, [func(x) for x in xs])
+
+    if name is not None:
+        ax.plot(xs, [func(x) for x in xs], label=name)
+    else:
+        ax.plot(xs, [func(x) for x in xs])
 
     if show:
+        if name is not None:
+            plt.legend(loc='upper left')
         plt.show()
 
 

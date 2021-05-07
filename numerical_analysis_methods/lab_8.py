@@ -99,55 +99,61 @@ def hiperbolic_function(p):
     return lambdify([x], func)
 
 
-def draw_func(func, points, name):
-    fig, ax = plt.subplots()
-    ax.set_title(name)
+def draw_func(func, points, fig, ax, name, show=False):
+    ax.set_title("Графики")
     plt.scatter([p[0] for p in points], [p[1] for p in points], color='r')
-    plotfunc(func, -30, 30, 200000, (-30, 30), (-100, 100), figAx=(fig, ax), show=True, xticks=None, yticks=None)
+    plotfunc(
+        func, -30, 30, 200000, (-30, 30),
+        (-100, 100),
+        figAx=(fig, ax),
+        show=show, xticks=None, yticks=None, name=name)
 
 
-points = [
-    (0.22, 58.46),
-    (-3.05, 36.05),
-    (-1.76, 31.17),
-    (-1.25, 16.17),
-    (-0.45, 11.16),
-    (-0.8, 69.23),
-    (-0.26, 58.08),
-    (-3.07, 43.13)
-]
+if __name__ == "__main__":
+    points = [
+        (0.22, 58.46),
+        (-3.05, 36.05),
+        (-1.76, 31.17),
+        (-1.25, 16.17),
+        (-0.45, 11.16),
+        (-0.8, 69.23),
+        (-0.26, 58.08),
+        (-3.07, 43.13)
+    ]
 
-log_points = [
-    (1, 6),
-    (2, 7.45),
-    (5, 8.24),
-    (8, 12.46),
-    (9, 13.09),
-    (12, 14.56),
-    (14, 25.89),
-    (16, 29.91)
-]
+    log_points = [
+        (1, 6),
+        (2, 7.45),
+        (5, 8.24),
+        (8, 12.46),
+        (9, 13.09),
+        (12, 14.56),
+        (14, 25.89),
+        (16, 29.91)
+    ]
 
-lin_func = linear_function(points)
-qud_func = qadratic_function(points)
-exp_func = exponential_function(points)
-log_func = logariphmic_function(points)
-hip_func = hiperbolic_function(points)
+    fig, ax = plt.subplots()
+    lin_func = linear_function(points)
+    qud_func = qadratic_function(points)
+    exp_func = exponential_function(points)
+    log_func = logariphmic_function(points)
+    hip_func = hiperbolic_function(points)
 
-draw_func(lin_func, points, "Линейная функция")
-draw_func(qud_func, points, "Многочлен второй степени")
-draw_func(exp_func, points, "Показательная функция")
-draw_func(log_func, points, "Логарифмическая функция")
-draw_func(hip_func, points, "Гиперболическая функция")
+    draw_func(lin_func, points, fig, ax, "Линейная функция")
+    draw_func(qud_func, points, fig, ax, "Многочлен второй степени")
+    draw_func(exp_func, points, fig, ax, "Показательная функция")
+    draw_func(log_func, points, fig, ax, "Логарифмическая функция")
+    draw_func(hip_func, points, fig, ax, "Гиперболическая функция", show=True)
 
-lin_func = linear_function(log_points)
-qud_func = qadratic_function(log_points)
-exp_func = exponential_function(log_points)
-log_func = logariphmic_function(log_points)
-hip_func = hiperbolic_function(log_points)
+    lin_func = linear_function(log_points)
+    qud_func = qadratic_function(log_points)
+    exp_func = exponential_function(log_points)
+    log_func = logariphmic_function(log_points)
+    hip_func = hiperbolic_function(log_points)
 
-draw_func(lin_func, log_points, "Линейная функция")
-draw_func(qud_func, log_points, "Многочлен второй степени")
-draw_func(exp_func, log_points, "Показательная функция")
-draw_func(log_func, log_points, "Логарифмическая функция")
-draw_func(hip_func, log_points, "Гиперболическая функция")
+    fig, ax = plt.subplots()
+    draw_func(lin_func, log_points, fig, ax, "Линейная функция")
+    draw_func(qud_func, log_points, fig, ax, "Многочлен второй степени")
+    draw_func(exp_func, log_points, fig, ax, "Показательная функция")
+    draw_func(log_func, log_points, fig, ax, "Логарифмическая функция")
+    draw_func(hip_func, log_points, fig, ax, "Гиперболическая функция", show=True)

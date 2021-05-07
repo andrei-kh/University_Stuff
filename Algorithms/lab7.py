@@ -16,9 +16,9 @@ class Simplex:
         self.z_optimal = None
         self.M = M
         self.c = c
-        self.tableau = self.__buildTableau(A, b, c, signs)
+        self.tableau = self.__buildTableau(A, b, signs)
 
-    def __buildTableau(self, A, b, c, signs):
+    def __buildTableau(self, A, b, signs):
         R = np.eye(self.c_num)
         P = b
 
