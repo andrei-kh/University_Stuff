@@ -109,3 +109,6 @@ plotfunc(P2, -10, 20, 20000, xlim=(-1, 20), ylim=(-20, 20), figAx=(fig, ax))
 #             break
 #         x_var = float(inp)
 #         print(P2(x_var))
+
+
+print(type(points))
