@@ -95,7 +95,7 @@ def euler_method(f, h, a, b, y0, z0):
     for i in range(n):
         f1, f2 = f(t[i], y[i], z[i])
         y_next = y[i] + h * f1
-        z_next = y[i] + h * f2
+        z_next = z[i] + h * f2
 
         y.append(y_next)
         z.append(z_next)
