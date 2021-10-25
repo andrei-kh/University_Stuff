@@ -44,7 +44,7 @@ def vertical_permutation_decrypt(s, k, p):
 
     return res
 
-
+# this does not work
 def vertical_permutation_decrypt_full(s):
     possible_k = [i for i in range(2, ceil(len(s) / 2)) if len(s) % i == 0]
 
