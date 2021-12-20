@@ -22,6 +22,7 @@ class TemplateHandler:
     def save_template(self, name):
         with open(name + '.tex', 'w', encoding='utf-8') as f:
             f.write(self.template)
+        print("༼ つ ◕_◕ ༽つ Saved result in `" + name + ".tex`")
 
     def end_text(self):
         self.template = self.template.replace("??", "")
@@ -99,14 +100,15 @@ def print_table(values):
             except BaseException:
                 break
         print()
+    print()
 
 
 def make_table(string):
     correct_string = string.replace(',', '.')
     values = list(map(float, correct_string.split()))
-    assert len(values) == N, f"Значений должно быть {N}, проверьте строку"
+    assert len(values) == N, f"must be {N} vallues, check the table."
 
-    print("Полученная таблица:")
+    print("Given table:")
     print_table(values)
 
     return sorted(values)

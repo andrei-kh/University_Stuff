@@ -75,6 +75,7 @@
 | Индекс совпадений    | grodno{0.169}                                                     |
 | Перестановка         | e45ebb6f674ccgf12e1f4ebcff41360004aa24                            |
 | Шифры 2000 лет назад | CYLINDERWITHASTRIPOFPARCHMENT                                     |
+| Маньяки вокруг нас   | grodno{ИНЦ ДЮЦПЮГЯЯШКН ШЪ ПЮЦБЙЦ. ЦЙ ЙГ ЮГЗЦНО, Г ЙО Щ ЖОЭКЗЕАО.} |
 
 # CTF 04 Симметричное шифрование
 
@@ -89,4 +90,3 @@
 | Гамма               | grodno{9}                         |
 | DH Key Exchange. I  | grodno{521;619}                   |
 | DH Key Exchange. II | grodno{521;1159;619;1257}         |
-

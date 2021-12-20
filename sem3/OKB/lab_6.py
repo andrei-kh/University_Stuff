@@ -57,8 +57,8 @@ def check_files():
                 removed_files = [
                     file for file in database[catalog].keys()
                     if file not in curr_dir_files
-                    if isfile(join(catalog, file))
                     if file != DATABASE_FILENAME]
+
                 if new_files:
                     print('New files:')
                     for file in new_files:
