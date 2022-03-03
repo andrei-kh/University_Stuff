@@ -27,7 +27,7 @@ def visualize_extended_gcd_traceback(traceback):
 
 def visualized_inverse(p, a):
     res, x, y, traceback = extended_gcd_with_traceback(p, a)
-    print(f"Обратное число а: {y % p}")
+    print(f"Обратное число {a}: {y % p}")
     visualize_extended_gcd_traceback(traceback)
     print(f"\t{res} = {a} * {y} + {p} * {x} => {a} * {y % p} = {res} (mod {p})")
     return y % p
@@ -75,8 +75,9 @@ def visual_binary_pow(a, b, mod):
     return (a ** b) % mod
 
 
-def do_task(p, m):
-    a, b = get_a_and_b(p)
+def do_task(p, m, a=None, b=None):
+    if a is None or b is None:
+        a, b = get_a_and_b(p)
     print(f"Число а: {a}")
     visualized_gcd(p - 1, a)
     print(f"Число b: {b}")
@@ -102,5 +103,53 @@ def do_task(p, m):
     print("Done...")
 
 
+def do_task_open(p1, p2, q1, q2, m, a=None, b=None):
+    ra = p1 * p2
+    phi_ra = (p1 - 1) * (p2 - 1)
+    rb = q1 * q2
+    phi_rb = (q1 - 1) * (q2 - 1)
+    if a is None:
+        a, _ = get_a_and_b(phi_ra)
+    if b is None:
+        b, _ = get_a_and_b(phi_rb)
+    alpha = visualized_inverse(phi_ra, a)
+    beta = visualized_inverse(phi_rb, b)
+    print("m_1 = m ^ b (mod r_b)")
+    m = visual_binary_pow(m, b, rb)
+    print(f"m_1 = {m}\n")
+    print("m_2 = m_1 ^ beta (mod r_b)")
+    m = visual_binary_pow(m, beta, rb)
+    print(f"m_2 = {m}\n")
+    print("done")
+
+
+def do_task_podpis(p1, p2, q1, q2, m, a=None, b=None):
+    ra = p1 * p2
+    phi_ra = (p1 - 1) * (p2 - 1)
+    rb = q1 * q2
+    phi_rb = (q1 - 1) * (q2 - 1)
+    if a is None:
+        a, _ = get_a_and_b(phi_ra)
+    if b is None:
+        b, _ = get_a_and_b(phi_rb)
+    alpha = visualized_inverse(phi_ra, a)
+    beta = visualized_inverse(phi_rb, b)
+    print("m_1 = m ^ beta (mod r_b)")
+    m = visual_binary_pow(m, beta, rb)
+    print(f"m_1 = {m}\n")
+    print("m_2 = m_1 ^ a (mod r_a)")
+    m = visual_binary_pow(m, a, ra)
+    print(f"m_2 = {m}\n")
+    print("m_3 = m_2 ^ alpha (mod r_a)")
+    m = visual_binary_pow(m, alpha, ra)
+    print(f"m_3 = {m}\n")
+    print("m_4 = m_3 ^ b (mod r_b)")
+    m = visual_binary_pow(m, b, rb)
+    print(f"m_4 = {m}\n")
+    print("done")
+
+
 if __name__ == "__main__":
-    do_task(23, 17)
+    do_task(23, 17, 3, 5)
+    # do_task_open(7, 23, 5, 11, 40)
+    # do_task_podpis(7, 23, 5, 11, 40)
