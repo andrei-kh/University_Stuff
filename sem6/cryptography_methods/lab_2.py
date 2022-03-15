@@ -193,7 +193,19 @@ def binary_pow(a: int, d: int, mod: int) -> int:
     return a_[r] % mod
 
 
-def send_message(public_key: int, private_key: int, r: int, abonent_name: str):
+def send_message(public_key: int, private_key: int, r: int, abonent_name: str) -> None:
+    """
+    Эмулирует обмен сообщениями между абонентами в Криптосистеме с открытым ключом.
+
+    Arguments:
+        public_key {int} -- открытый ключ
+        private_key {int} -- закрытый ключ
+        r {int} -- простое число
+        abonent_name {str} -- имя абонента, которому отправляется сообщение
+
+    Returns:
+        None
+    """
     # Выбираем случайное m из промежутка [1, r_b]
     m = randint(1, r)
     print(f"Выбранное сообщение: {m}")
