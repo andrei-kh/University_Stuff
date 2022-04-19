@@ -71,7 +71,7 @@ def matching_method(a: int, b: int, p: int) -> int:
     h = ceil(sqrt(ord_pa))
     # Таблица значений величины ba^t (mod p), t = 0, 1, ..., h - 1
     bat_table = [(b * binary_pow(a, t, p)) % p for t in range(h)]
-    # Вычисляем значений величины (a ^ h) ^ l (mod p), t = 1, 2, ..., h и сравниваем с значениями в таблице
+    # Вычисляем значений величины (a ^ h) ^ l (mod p), l = 1, 2, ..., h и сравниваем с значениями в таблице
     for l in range(1, h + 1):
         ahl = binary_pow(a, h * l, p)
         for t in range(h):
@@ -232,8 +232,11 @@ def sylvester_pohlig_hellman_method(a: int, b: int, p: int) -> int:
     factors = factorize(ord_pa)
     # Находим mu_i = ord(a, p) / p_i^alpha_i
     mu = [ord_pa // factor for factor in factors]
-    # Находим x_i
+    # Находим x_i из условий (a^mu_i)^x_i = b^mu_i (mod p) используя метод согласования
     x = [matching_method(binary_pow(a, mu_i, p), binary_pow(b, mu_i, p), p) for mu_i in mu]
+    # Если метод согласования не дал решение, то возвращаем None
+    if None in x:
+        return None
     # Находим x используя китайскую теорему об остатках
     return chineese_remainder_theorem(x, factors)
 
